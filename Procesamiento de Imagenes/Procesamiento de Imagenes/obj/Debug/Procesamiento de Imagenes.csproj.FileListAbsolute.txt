@@ -1,0 +1,11 @@
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\bin\Debug\Procesamiento de Imagenes.exe.config
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\bin\Debug\Procesamiento de Imagenes.exe
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\bin\Debug\Procesamiento de Imagenes.pdb
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\obj\Debug\Procesamiento de Imagenes.csproj.AssemblyReference.cache
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\obj\Debug\Procesamiento_de_Imagenes.Form1.resources
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\obj\Debug\Procesamiento_de_Imagenes.Form2.resources
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\obj\Debug\Procesamiento_de_Imagenes.Properties.Resources.resources
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\obj\Debug\Procesamiento de Imagenes.csproj.GenerateResource.cache
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\obj\Debug\Procesamiento de Imagenes.csproj.CoreCompileInputs.cache
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\obj\Debug\Procesamiento de Imagenes.exe
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\obj\Debug\Procesamiento de Imagenes.pdb
