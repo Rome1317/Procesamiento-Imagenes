@@ -359,7 +359,7 @@ namespace Procesamiento_de_Imagenes
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(15)))), ((int)(((byte)(13)))));
-            this.ClientSize = new System.Drawing.Size(1094, 520);
+            this.ClientSize = new System.Drawing.Size(1094, 497);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button4);
