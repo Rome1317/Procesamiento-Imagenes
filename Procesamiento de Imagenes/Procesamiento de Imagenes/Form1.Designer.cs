@@ -49,6 +49,7 @@ namespace Procesamiento_de_Imagenes
             this.gaussianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.noiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.despeckleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.movementRecognitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,7 +59,8 @@ namespace Procesamiento_de_Imagenes
             this.menuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.filtersToolStripMenuItem});
+            this.filtersToolStripMenuItem,
+            this.movementRecognitionToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(884, 24);
@@ -82,14 +84,14 @@ namespace Procesamiento_de_Imagenes
             // newProjectToolStripMenuItem
             // 
             this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.newProjectToolStripMenuItem.Text = "New Project";
             this.newProjectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -97,13 +99,13 @@ namespace Procesamiento_de_Imagenes
             // 
             this.saveAllToolStripMenuItem.Enabled = false;
             this.saveAllToolStripMenuItem.Name = "saveAllToolStripMenuItem";
-            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.saveAllToolStripMenuItem.Text = "Export as";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -130,7 +132,7 @@ namespace Procesamiento_de_Imagenes
             this.warmToolStripMenuItem,
             this.dramaToolStripMenuItem});
             this.bWToolStripMenuItem.Name = "bWToolStripMenuItem";
-            this.bWToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bWToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.bWToolStripMenuItem.Text = "Colors";
             // 
             // blackWhiteToolStripMenuItem
@@ -186,7 +188,7 @@ namespace Procesamiento_de_Imagenes
             this.blurToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gaussianToolStripMenuItem});
             this.blurToolStripMenuItem.Name = "blurToolStripMenuItem";
-            this.blurToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blurToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.blurToolStripMenuItem.Text = "Blur";
             // 
             // gaussianToolStripMenuItem
@@ -200,7 +202,7 @@ namespace Procesamiento_de_Imagenes
             this.noiseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.despeckleToolStripMenuItem});
             this.noiseToolStripMenuItem.Name = "noiseToolStripMenuItem";
-            this.noiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.noiseToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.noiseToolStripMenuItem.Text = "Noise";
             // 
             // despeckleToolStripMenuItem
@@ -208,6 +210,13 @@ namespace Procesamiento_de_Imagenes
             this.despeckleToolStripMenuItem.Name = "despeckleToolStripMenuItem";
             this.despeckleToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.despeckleToolStripMenuItem.Text = "Despeckle";
+            // 
+            // movementRecognitionToolStripMenuItem
+            // 
+            this.movementRecognitionToolStripMenuItem.Name = "movementRecognitionToolStripMenuItem";
+            this.movementRecognitionToolStripMenuItem.Size = new System.Drawing.Size(144, 20);
+            this.movementRecognitionToolStripMenuItem.Text = "Movement Recognition";
+            this.movementRecognitionToolStripMenuItem.Click += new System.EventHandler(this.movementRecognitionToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -223,6 +232,7 @@ namespace Procesamiento_de_Imagenes
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Form1";
             this.Text = "Cubes";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -252,6 +262,7 @@ namespace Procesamiento_de_Imagenes
         private System.Windows.Forms.ToolStripMenuItem gaussianToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noiseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem despeckleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem movementRecognitionToolStripMenuItem;
     }
 }
 
