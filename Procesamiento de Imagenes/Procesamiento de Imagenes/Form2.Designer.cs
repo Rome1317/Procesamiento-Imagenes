@@ -53,10 +53,13 @@ namespace Procesamiento_de_Imagenes
             this.mirrorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.negativeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sepiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.warmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gaussianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.noiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.despeckleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pixelateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mosaicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.movementRecognitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -68,9 +71,6 @@ namespace Procesamiento_de_Imagenes
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button6 = new System.Windows.Forms.Button();
-            this.pixelateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mosaicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.warmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -186,7 +186,7 @@ namespace Procesamiento_de_Imagenes
             this.sepiaToolStripMenuItem,
             this.warmToolStripMenuItem});
             this.bWToolStripMenuItem.Name = "bWToolStripMenuItem";
-            this.bWToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bWToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.bWToolStripMenuItem.Text = "Colors";
             // 
             // coolToolStripMenuItem
@@ -278,19 +278,25 @@ namespace Procesamiento_de_Imagenes
             this.sepiaToolStripMenuItem.Text = "Sepia";
             this.sepiaToolStripMenuItem.Click += new System.EventHandler(this.sepiaToolStripMenuItem_Click);
             // 
+            // warmToolStripMenuItem
+            // 
+            this.warmToolStripMenuItem.Name = "warmToolStripMenuItem";
+            this.warmToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.warmToolStripMenuItem.Text = "Warm";
+            // 
             // blurToolStripMenuItem
             // 
             this.blurToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gaussianToolStripMenuItem});
             this.blurToolStripMenuItem.Name = "blurToolStripMenuItem";
-            this.blurToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blurToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.blurToolStripMenuItem.Text = "Blur";
             // 
             // gaussianToolStripMenuItem
             // 
             this.gaussianToolStripMenuItem.Enabled = false;
             this.gaussianToolStripMenuItem.Name = "gaussianToolStripMenuItem";
-            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.gaussianToolStripMenuItem.Text = "Gaussian";
             // 
             // noiseToolStripMenuItem
@@ -298,15 +304,30 @@ namespace Procesamiento_de_Imagenes
             this.noiseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.despeckleToolStripMenuItem});
             this.noiseToolStripMenuItem.Name = "noiseToolStripMenuItem";
-            this.noiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.noiseToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.noiseToolStripMenuItem.Text = "Noise";
             // 
             // despeckleToolStripMenuItem
             // 
             this.despeckleToolStripMenuItem.Name = "despeckleToolStripMenuItem";
-            this.despeckleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.despeckleToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.despeckleToolStripMenuItem.Text = "Salt and Pepper";
             this.despeckleToolStripMenuItem.Click += new System.EventHandler(this.despeckleToolStripMenuItem_Click);
+            // 
+            // pixelateToolStripMenuItem
+            // 
+            this.pixelateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mosaicToolStripMenuItem});
+            this.pixelateToolStripMenuItem.Name = "pixelateToolStripMenuItem";
+            this.pixelateToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.pixelateToolStripMenuItem.Text = "Pixelate";
+            // 
+            // mosaicToolStripMenuItem
+            // 
+            this.mosaicToolStripMenuItem.Name = "mosaicToolStripMenuItem";
+            this.mosaicToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.mosaicToolStripMenuItem.Text = "Mosaic";
+            this.mosaicToolStripMenuItem.Click += new System.EventHandler(this.mosaicToolStripMenuItem_Click);
             // 
             // movementRecognitionToolStripMenuItem
             // 
@@ -434,27 +455,6 @@ namespace Procesamiento_de_Imagenes
             this.button6.TabIndex = 18;
             this.button6.Text = "Upload Video";
             this.button6.UseVisualStyleBackColor = true;
-            // 
-            // pixelateToolStripMenuItem
-            // 
-            this.pixelateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mosaicToolStripMenuItem});
-            this.pixelateToolStripMenuItem.Name = "pixelateToolStripMenuItem";
-            this.pixelateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.pixelateToolStripMenuItem.Text = "Pixelate";
-            // 
-            // mosaicToolStripMenuItem
-            // 
-            this.mosaicToolStripMenuItem.Name = "mosaicToolStripMenuItem";
-            this.mosaicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.mosaicToolStripMenuItem.Text = "Mosaic";
-            this.mosaicToolStripMenuItem.Click += new System.EventHandler(this.mosaicToolStripMenuItem_Click);
-            // 
-            // warmToolStripMenuItem
-            // 
-            this.warmToolStripMenuItem.Name = "warmToolStripMenuItem";
-            this.warmToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
-            this.warmToolStripMenuItem.Text = "Warm";
             // 
             // Form2
             // 

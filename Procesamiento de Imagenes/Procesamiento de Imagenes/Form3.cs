@@ -76,6 +76,9 @@ namespace Procesamiento_de_Imagenes
                 CloseWebCam();
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

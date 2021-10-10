@@ -574,6 +574,7 @@ namespace Procesamiento_de_Imagenes
             pictureBox2.Image = Pixelate((Bitmap)pictureBox2.Image);
         }
 
+
         private void grayScaleToBinaryBWToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pictureBox2.Image = GrayScaletoBinary((Bitmap)pictureBox2.Image);
