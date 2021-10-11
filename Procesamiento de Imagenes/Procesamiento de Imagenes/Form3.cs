@@ -26,7 +26,7 @@ namespace Procesamiento_de_Imagenes
         {
             if (myWebCam == null && myDevices.Count > 0)
             {
-                myWebCam = new VideoCaptureDevice(myDevices[0].MonikerString);
+                myWebCam = new VideoCaptureDevice(myDevices[comboBox1.SelectedIndex].MonikerString);
                 myWebCam.NewFrame += Recording;
                 myWebCam.Start();
             }
@@ -61,6 +61,17 @@ namespace Procesamiento_de_Imagenes
 
         private void Form3_Load(object sender, EventArgs e)
         {
+            if (myDevices.Count > 0)
+            {
+                foreach (FilterInfo filterInfo in myDevices)
+                    comboBox1.Items.Add(filterInfo.Name);
+                comboBox1.SelectedIndex = 0;
+            }
+            else
+            {
+                MessageBox.Show("No device was found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
 
         }
 

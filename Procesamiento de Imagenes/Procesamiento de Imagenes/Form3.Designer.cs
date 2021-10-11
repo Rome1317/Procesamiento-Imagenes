@@ -34,6 +34,8 @@ namespace Procesamiento_de_Imagenes
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,7 +57,7 @@ namespace Procesamiento_de_Imagenes
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(384, 443);
+            this.button5.Location = new System.Drawing.Point(481, 446);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(170, 27);
             this.button5.TabIndex = 19;
@@ -69,7 +71,7 @@ namespace Procesamiento_de_Imagenes
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(130, 443);
+            this.button2.Location = new System.Drawing.Point(305, 446);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(170, 27);
             this.button2.TabIndex = 18;
@@ -100,12 +102,33 @@ namespace Procesamiento_de_Imagenes
             this.label2.TabIndex = 21;
             this.label2.Text = "0";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(83, 450);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(206, 21);
+            this.comboBox1.TabIndex = 23;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(21, 453);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 13);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "Webcam :";
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(15)))), ((int)(((byte)(13)))));
             this.ClientSize = new System.Drawing.Size(834, 481);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button5);
@@ -130,5 +153,7 @@ namespace Procesamiento_de_Imagenes
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label3;
     }
 }

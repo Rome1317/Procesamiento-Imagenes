@@ -348,6 +348,19 @@ namespace Procesamiento_de_Imagenes
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.Image = new Bitmap(global::Procesamiento_de_Imagenes.Properties.Resources._8);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+
+
+            if (myDevices.Count > 0)
+            {
+                foreach (FilterInfo filterInfo in myDevices)
+                    comboBox1.Items.Add(filterInfo.Name);
+                comboBox1.SelectedIndex = 0;
+            }
+            else
+            {
+                MessageBox.Show("No device was found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
 
         public void Form2_FormClosing(object sender, FormClosingEventArgs e)
@@ -452,7 +465,7 @@ namespace Procesamiento_de_Imagenes
         {
             if (myWebCam == null && myDevices.Count > 0)
             {
-                myWebCam = new VideoCaptureDevice(myDevices[0].MonikerString);
+                myWebCam = new VideoCaptureDevice(myDevices[comboBox1.SelectedIndex].MonikerString);
                 myWebCam.NewFrame += Recording;
                 myWebCam.Start();
             }
