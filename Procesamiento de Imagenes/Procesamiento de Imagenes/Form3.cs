@@ -1,5 +1,7 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
+using Emgu.CV;
+using Emgu.CV.Structure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,10 +38,25 @@ namespace Procesamiento_de_Imagenes
             }
 
         }
+        static readonly CascadeClassifier cascadeClassifier = new CascadeClassifier("haarcascade_frontalface_alt_tree.xml");
 
         private void Recording(object sender, NewFrameEventArgs eventArgs)
         {
-            pictureBox1.Image = (Bitmap)eventArgs.Frame.Clone();
+            Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
+            Image<Bgr, byte> grayImage = new Image<Bgr, byte>(bitmap);
+            Rectangle[] rectangles = cascadeClassifier.DetectMultiScale(grayImage, 1.2,1);
+            foreach(Rectangle rectangle in rectangles)
+            {
+                using (Graphics graphics = Graphics.FromImage(bitmap))
+                {
+                    using (Pen pen = new Pen(Color.Blue, 1))
+                    {
+                        graphics.DrawRectangle(pen, rectangle);
+                    }
+                }
+            }
+            pictureBox1.Image = bitmap;
+
         }
 
 
