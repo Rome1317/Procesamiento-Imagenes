@@ -33,11 +33,14 @@ namespace Procesamiento_de_Imagenes
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.videoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jpgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jPEGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bMPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mP4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filtersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +76,9 @@ namespace Procesamiento_de_Imagenes
             this.button6 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -114,10 +120,26 @@ namespace Procesamiento_de_Imagenes
             // 
             // openToolStripMenuItem
             // 
+            this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.imageToolStripMenuItem,
+            this.videoToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // imageToolStripMenuItem
+            // 
+            this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
+            this.imageToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.imageToolStripMenuItem.Text = "Image";
+            this.imageToolStripMenuItem.Click += new System.EventHandler(this.imageToolStripMenuItem_Click);
+            // 
+            // videoToolStripMenuItem
+            // 
+            this.videoToolStripMenuItem.Name = "videoToolStripMenuItem";
+            this.videoToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.videoToolStripMenuItem.Text = "Video";
+            this.videoToolStripMenuItem.Click += new System.EventHandler(this.videoToolStripMenuItem_Click);
             // 
             // saveAllToolStripMenuItem
             // 
@@ -125,7 +147,8 @@ namespace Procesamiento_de_Imagenes
             this.jpgToolStripMenuItem,
             this.jPEGToolStripMenuItem,
             this.pngToolStripMenuItem,
-            this.bMPToolStripMenuItem});
+            this.bMPToolStripMenuItem,
+            this.mP4ToolStripMenuItem});
             this.saveAllToolStripMenuItem.Name = "saveAllToolStripMenuItem";
             this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.saveAllToolStripMenuItem.Text = "Export as";
@@ -158,6 +181,14 @@ namespace Procesamiento_de_Imagenes
             this.bMPToolStripMenuItem.Text = "BMP";
             this.bMPToolStripMenuItem.Click += new System.EventHandler(this.bMPToolStripMenuItem_Click);
             // 
+            // mP4ToolStripMenuItem
+            // 
+            this.mP4ToolStripMenuItem.Enabled = false;
+            this.mP4ToolStripMenuItem.Name = "mP4ToolStripMenuItem";
+            this.mP4ToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.mP4ToolStripMenuItem.Text = "MP4";
+            this.mP4ToolStripMenuItem.Click += new System.EventHandler(this.mP4ToolStripMenuItem_Click);
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
@@ -188,7 +219,7 @@ namespace Procesamiento_de_Imagenes
             this.sepiaToolStripMenuItem,
             this.warmToolStripMenuItem});
             this.bWToolStripMenuItem.Name = "bWToolStripMenuItem";
-            this.bWToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.bWToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.bWToolStripMenuItem.Text = "Colors";
             // 
             // coolToolStripMenuItem
@@ -250,7 +281,7 @@ namespace Procesamiento_de_Imagenes
             this.greyScaleToolStripMenuItem.Name = "greyScaleToolStripMenuItem";
             this.greyScaleToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.greyScaleToolStripMenuItem.Text = "Gray Scale";
-            this.greyScaleToolStripMenuItem.Click += new System.EventHandler(this.greyScaleToolStripMenuItem_Click);
+            this.greyScaleToolStripMenuItem.Click += new System.EventHandler(this.grayScaleToolStripMenuItem_Click);
             // 
             // grayScaleToBinaryBWToolStripMenuItem
             // 
@@ -285,13 +316,14 @@ namespace Procesamiento_de_Imagenes
             this.warmToolStripMenuItem.Name = "warmToolStripMenuItem";
             this.warmToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.warmToolStripMenuItem.Text = "Warm";
+            this.warmToolStripMenuItem.Click += new System.EventHandler(this.warmToolStripMenuItem_Click);
             // 
             // blurToolStripMenuItem
             // 
             this.blurToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gaussianToolStripMenuItem});
             this.blurToolStripMenuItem.Name = "blurToolStripMenuItem";
-            this.blurToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.blurToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.blurToolStripMenuItem.Text = "Blur";
             // 
             // gaussianToolStripMenuItem
@@ -306,7 +338,7 @@ namespace Procesamiento_de_Imagenes
             this.noiseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.despeckleToolStripMenuItem});
             this.noiseToolStripMenuItem.Name = "noiseToolStripMenuItem";
-            this.noiseToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.noiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.noiseToolStripMenuItem.Text = "Noise";
             // 
             // despeckleToolStripMenuItem
@@ -321,7 +353,7 @@ namespace Procesamiento_de_Imagenes
             this.pixelateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mosaicToolStripMenuItem});
             this.pixelateToolStripMenuItem.Name = "pixelateToolStripMenuItem";
-            this.pixelateToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.pixelateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pixelateToolStripMenuItem.Text = "Pixelate";
             // 
             // mosaicToolStripMenuItem
@@ -388,7 +420,7 @@ namespace Procesamiento_de_Imagenes
             this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(633, 459);
+            this.button4.Location = new System.Drawing.Point(757, 459);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(77, 27);
             this.button4.TabIndex = 15;
@@ -415,7 +447,7 @@ namespace Procesamiento_de_Imagenes
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(716, 459);
+            this.button5.Location = new System.Drawing.Point(840, 459);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(77, 27);
             this.button5.TabIndex = 17;
@@ -457,6 +489,7 @@ namespace Procesamiento_de_Imagenes
             this.button6.TabIndex = 18;
             this.button6.Text = "Upload Video";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label1
             // 
@@ -477,12 +510,48 @@ namespace Procesamiento_de_Imagenes
             this.comboBox1.Size = new System.Drawing.Size(206, 21);
             this.comboBox1.TabIndex = 20;
             // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(15)))), ((int)(((byte)(13)))));
+            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button7.ForeColor = System.Drawing.Color.White;
+            this.button7.Location = new System.Drawing.Point(840, 459);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(77, 27);
+            this.button7.TabIndex = 22;
+            this.button7.Text = "Pause";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Visible = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(15)))), ((int)(((byte)(13)))));
+            this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button8.ForeColor = System.Drawing.Color.White;
+            this.button8.Location = new System.Drawing.Point(757, 459);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(77, 27);
+            this.button8.TabIndex = 21;
+            this.button8.Text = "Play";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Visible = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // saveFileDialog2
+            // 
+            this.saveFileDialog2.Filter = "MP4 (*.mp4)|*.mp4|All Files(*.*)|*.*";
+            // 
             // Form2
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(15)))), ((int)(((byte)(13)))));
             this.ClientSize = new System.Drawing.Size(1094, 497);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button6);
@@ -558,5 +627,11 @@ namespace Procesamiento_de_Imagenes
         private System.Windows.Forms.ToolStripMenuItem mosaicToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem videoToolStripMenuItem;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog2;
+        private System.Windows.Forms.ToolStripMenuItem mP4ToolStripMenuItem;
     }
 }

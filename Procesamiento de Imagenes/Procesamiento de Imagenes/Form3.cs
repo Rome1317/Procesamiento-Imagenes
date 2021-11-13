@@ -18,6 +18,9 @@ namespace Procesamiento_de_Imagenes
     {
         private FilterInfoCollection myDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
         private VideoCaptureDevice myWebCam = null;
+
+        int people = 0;
+
         public Form3()
         {
             InitializeComponent();
@@ -31,6 +34,7 @@ namespace Procesamiento_de_Imagenes
                 myWebCam = new VideoCaptureDevice(myDevices[comboBox1.SelectedIndex].MonikerString);
                 myWebCam.NewFrame += Recording;
                 myWebCam.Start();
+
             }
             else
             {
@@ -38,24 +42,38 @@ namespace Procesamiento_de_Imagenes
             }
 
         }
+
         static readonly CascadeClassifier cascadeClassifier = new CascadeClassifier("haarcascade_frontalface_alt_tree.xml");
 
         private void Recording(object sender, NewFrameEventArgs eventArgs)
         {
+
+            people = 0;
+
             Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
             Image<Bgr, byte> grayImage = new Image<Bgr, byte>(bitmap);
-            Rectangle[] rectangles = cascadeClassifier.DetectMultiScale(grayImage, 1.2,1);
-            foreach(Rectangle rectangle in rectangles)
+            Rectangle[] rectangles = cascadeClassifier.DetectMultiScale(grayImage, 1.2, 1);
+            foreach (Rectangle rectangle in rectangles)
             {
                 using (Graphics graphics = Graphics.FromImage(bitmap))
                 {
                     using (Pen pen = new Pen(Color.Blue, 1))
                     {
                         graphics.DrawRectangle(pen, rectangle);
+
+
                     }
                 }
+
+                people = ++people;
+
             }
             pictureBox1.Image = bitmap;
+
+            label2.Invoke(new Action(() =>
+            {
+                label2.Text = people.ToString();
+            }));
 
         }
 

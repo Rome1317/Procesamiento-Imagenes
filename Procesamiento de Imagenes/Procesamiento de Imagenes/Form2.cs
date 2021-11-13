@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AForge.Video;
 using AForge.Video.DirectShow;
+using Emgu.CV;
+using Emgu.CV.Structure;
 
 namespace Procesamiento_de_Imagenes
 {
@@ -16,6 +18,18 @@ namespace Procesamiento_de_Imagenes
     {
         Form3 recognition = new Form3();
 
+        // Validation variables
+        bool upload = false;
+        bool video = false;
+        string filter = "";
+
+        //Video variables
+        double totalFrame = 0;
+        double fps = 0;
+        int frameNo = 0;
+        VideoCapture capture;
+        bool IsReadingFrames = false;
+   
         // Camera variables
         private FilterInfoCollection myDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
         private VideoCaptureDevice myWebCam = null;
@@ -198,7 +212,7 @@ namespace Procesamiento_de_Imagenes
         }
         #endregion
 
-        //  Cool or Warm
+        //  Cool
         #region Cool
         public Bitmap Cool(Bitmap image)
         {
@@ -219,6 +233,39 @@ namespace Procesamiento_de_Imagenes
                         R = 0;
                     if (R > 255)
                         R = 255;
+
+                    Newpixel = Color.FromArgb(pixel.A, R, G, B); // New pixel color
+                    image.SetPixel(x, y, Newpixel);
+                }
+            }
+
+
+            return image;
+        }
+
+        #endregion
+
+        // Warm
+        #region Warm
+        public Bitmap Warm(Bitmap image)
+        {
+
+            int adjusment = -50;
+
+            // For pixel by pixel
+            for (int x = 0; x < image.Width; x++)
+            {
+                for (int y = 0; y < image.Height; y++)
+                {
+                    pixel = image.GetPixel(x, y);
+                    R = pixel.R;
+                    G = pixel.G;
+                    B = pixel.B + adjusment;
+
+                    if (B < 0)
+                        B = 0;
+                    if (B > 255)
+                        B = 255;
 
                     Newpixel = Color.FromArgb(pixel.A, R, G, B); // New pixel color
                     image.SetPixel(x, y, Newpixel);
@@ -330,18 +377,6 @@ namespace Procesamiento_de_Imagenes
             InitializeComponent();
 
         }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                pictureBox2.Image.Save(saveFileDialog1.FileName);
-            }
-
-        }
-
-
         private void Form2_Load(object sender, EventArgs e)
         {
             pictureBox1.Image = new Bitmap(global::Procesamiento_de_Imagenes.Properties.Resources._7);
@@ -370,6 +405,34 @@ namespace Procesamiento_de_Imagenes
 
         }
 
+        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (upload)
+            {
+                const string message =
+                "Any unsaved changes will be lost. Are you sure you want to start a new project?";
+                const string caption = "New project";
+                var result = MessageBox.Show(message, caption,
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Question);
+
+                // If the no button was pressed ...
+                if (result == DialogResult.Yes)
+                {
+                    this.Controls.Clear();
+                    this.InitializeComponent();
+                    Form2_Load(sender, e);
+                }
+            }
+            else
+            {
+                this.Controls.Clear();
+                this.InitializeComponent();
+                Form2_Load(sender, e);
+            }
+
+        }
+
         public void UploadImage()
         {
             // open file dialog   
@@ -386,45 +449,37 @@ namespace Procesamiento_de_Imagenes
                 pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
                 // image file path  
                 textBox1.Text = open.FileName;
+
+                upload = true;
+
+                video = false;
+
+                mP4ToolStripMenuItem.Enabled = false;
             }
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        public void UploadVideo()
         {
-            UploadImage();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            const string message = "Any unsaved changes will be lost. Are you sure you want to start a new project?";
-            const string caption = "New project";
-            var result = MessageBox.Show(message, caption,
-                                         MessageBoxButtons.YesNo,
-                                         MessageBoxIcon.Question);
-
-            // If the no button was pressed ...
-            if (result == DialogResult.Yes)
+            // open file dialog   
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "Video Files|*.mp4;";
+            if (open.ShowDialog() == DialogResult.OK)
             {
-                UploadImage();
-            }
+                capture = new VideoCapture(open.FileName);
+                Mat m = new Mat();
+                capture.Read(m);
+                pictureBox1.Image = m.Bitmap;
+                pictureBox2.Image = m.Bitmap;
 
-        }
+                totalFrame = capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameCount);
+                fps = capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.Fps);
 
-        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            const string message =
-            "Any unsaved changes will be lost. Are you sure you want to start a new project?";
-            const string caption = "New project";
-            var result = MessageBox.Show(message, caption,
-                                         MessageBoxButtons.YesNo,
-                                         MessageBoxIcon.Question);
+                video = true;
 
-            // If the no button was pressed ...
-            if (result == DialogResult.Yes)
-            {
-                this.Controls.Clear();
-                this.InitializeComponent();
-                Form2_Load(sender, e);
+                button7.Visible = true;
+                button8.Visible = true;
+
+                mP4ToolStripMenuItem.Enabled = true;
             }
 
         }
@@ -437,6 +492,41 @@ namespace Procesamiento_de_Imagenes
                 {
                     pictureBox2.Image.Save(saveFileDialog.FileName);
                 }
+            }
+        }
+
+        public void SaveVideo()
+        {
+            if (saveFileDialog2.ShowDialog() == DialogResult.OK)
+            {
+                int fourcc = Convert.ToInt32(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FourCC));
+                int width = Convert.ToInt32(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameWidth));
+                int height = Convert.ToInt32(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameHeight));
+                VideoWriter writer = new VideoWriter(saveFileDialog2.FileName, fourcc, fps, new Size(width, height), true);
+                Mat m = new Mat();
+                Image<Bgr, byte> filter_image = null;
+                while (frameNo < totalFrame)
+                {
+
+                    capture.Read(m);
+                    if (m.Bitmap != null)
+                    {
+                        filter_image = new Image<Bgr, byte>(m.Bitmap);
+                        writer.Write(filter_image.Mat);
+                        frameNo++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if (writer.IsOpened)
+                {
+                    writer.Dispose();
+                }
+
+                MessageBox.Show("Video successfully saved", "Update");
             }
         }
 
@@ -461,23 +551,88 @@ namespace Procesamiento_de_Imagenes
             SaveImage("JPEG|*.jpeg;");
         }
 
+        // Upload Image Button
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (upload)
+            {
+                const string message = "Any unsaved changes will be lost. Are you sure you want to start a new project?";
+                const string caption = "New project";
+                var result = MessageBox.Show(message, caption,
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Question);
+
+                // If the no button was pressed ...
+                if (result == DialogResult.Yes)
+                {
+                    UploadImage();
+                }
+            }
+            else
+                UploadImage();
+
+        }
+
+        // Webcam Button
         private void button2_Click(object sender, EventArgs e)
         {
+
             if (myWebCam == null && myDevices.Count > 0)
             {
                 myWebCam = new VideoCaptureDevice(myDevices[comboBox1.SelectedIndex].MonikerString);
                 myWebCam.NewFrame += Recording;
                 myWebCam.Start();
+
+                video = false;
+
+                button7.Visible = false;
+                button8.Visible = false;
             }
             else
             {
                 MessageBox.Show("The camera is already on.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
         }
 
         private void Recording(object sender, NewFrameEventArgs eventArgs)
         {
             pictureBox1.Image = (Bitmap)eventArgs.Frame.Clone();
+        }
+
+        // Save Button
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (video)
+            {
+                SaveVideo();
+            }
+            else
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                    pictureBox2.Image.Save(saveFileDialog1.FileName);
+            }
+
+        }
+
+        // Capture Button
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (myWebCam != null && myWebCam.IsRunning == true)
+            {
+                pictureBox2.Image = pictureBox1.Image;
+            }
+            else
+            {
+                MessageBox.Show("The camera is not turned on.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        
+        // Stop Button
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (myWebCam != null)
+                CloseWebCam();
         }
 
         private void CloseWebCam()
@@ -495,15 +650,105 @@ namespace Procesamiento_de_Imagenes
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+
+        // Upload Video Button
+        private void button6_Click(object sender, EventArgs e)
         {
-            if (myWebCam != null && myWebCam.IsRunning == true)
+            if (IsReadingFrames || capture != null)
             {
-                pictureBox2.Image = pictureBox1.Image;
+                IsReadingFrames = false;
+                capture = null;
+                frameNo = 0;
+            }
+            if (upload)
+            {
+                const string message = "Any unsaved changes will be lost. Are you sure you want to start a new project?";
+                const string caption = "New project";
+                var result = MessageBox.Show(message, caption,
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Question);
+
+                // If the no button was pressed ...
+                if (result == DialogResult.Yes)
+                {
+                    UploadVideo();
+                }
             }
             else
+                UploadVideo();
+
+        }
+
+        // Pause Button
+        private void button7_Click(object sender, EventArgs e)
+        {
+            IsReadingFrames = false;
+        }
+
+        // Play Button
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (capture == null)
             {
-                MessageBox.Show("The camera is not turned on.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            IsReadingFrames = true;
+            ReadAllFrames();
+        }
+
+        private async void ReadAllFrames()
+        {
+            Image<Bgr, byte> filter_image = null;
+            Image<Bgr, byte> nofilter_image = null;
+            Mat m = new Mat();
+
+            while (IsReadingFrames && frameNo < totalFrame)
+            {
+                frameNo += 1;
+                capture.SetCaptureProperty(Emgu.CV.CvEnum.CapProp.PosFrames, frameNo);
+                capture.Read(m);
+                if (m.Bitmap != null)
+                { 
+                    nofilter_image = new Image<Bgr, byte>(m.Bitmap);
+                    filter_image = new Image<Bgr, byte>(m.Bitmap);
+
+                    if (filter == "B&W")
+                        filter_image = new Image<Bgr, byte>(GrayScaletoBinary(m.Bitmap));
+                    else if(filter == "GRAY")
+                        filter_image = new Image<Bgr, byte>(GrayScale(m.Bitmap));
+                    else if (filter == "SEPIA")
+                        filter_image = new Image<Bgr, byte>(Sepia(m.Bitmap));
+                    else if (filter == "GAMMA .8")
+                        filter_image = new Image<Bgr, byte>(Gamma(m.Bitmap, .8f));
+                    else if (filter == "GAMMA .9")
+                        filter_image = new Image<Bgr, byte>(Gamma(m.Bitmap,.9f));
+                    else if (filter == "GAMMA 1.0")
+                        filter_image = new Image<Bgr, byte>(Gamma(m.Bitmap,1f));
+                    else if (filter == "GAMMA 1.1")
+                        filter_image = new Image<Bgr, byte>(Gamma(m.Bitmap,1.1f));
+                    else if (filter == "GAMMA 1.2")
+                        filter_image = new Image<Bgr, byte>(Gamma(m.Bitmap, 1.2f));
+                    else if (filter == "S&P")
+                        filter_image = new Image<Bgr, byte>(NoiseSaltPepper(m.Bitmap));
+                    else if (filter == "COOL")
+                        filter_image = new Image<Bgr, byte>(Cool(m.Bitmap));
+                    else if (filter == "NEGATIVE")
+                        filter_image = new Image<Bgr, byte>(Negative(m.Bitmap));
+                    else if (filter == "MIRROR")
+                        filter_image = new Image<Bgr, byte>(Mirror(m.Bitmap));
+                    else if (filter == "MOSAIC")
+                        filter_image = new Image<Bgr, byte>(Pixelate(m.Bitmap));
+                    else if (filter == "WARM")
+                        filter_image = new Image<Bgr, byte>(Warm(m.Bitmap));
+                    else 
+                        filter_image = new Image<Bgr, byte>(m.Bitmap);
+
+                    pictureBox2.Image = filter_image.ToBitmap();
+                    pictureBox1.Image = nofilter_image.ToBitmap();
+                    await Task.Delay(1000 / Convert.ToInt32(fps));
+                }
+                if (frameNo + 1 == totalFrame)
+                    frameNo = 0;
             }
         }
 
@@ -514,12 +759,6 @@ namespace Procesamiento_de_Imagenes
 
             this.Close();
             
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            if (myWebCam != null)
-                CloseWebCam();
         }
 
         private void movementRecognitionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -537,71 +776,144 @@ namespace Procesamiento_de_Imagenes
             recognition.Form3_FormClosed(sender, e);
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private void imageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pictureBox2.Image = Gamma((Bitmap)pictureBox2.Image, .8f);
+            if (upload)
+            {
+                const string message = "Any unsaved changes will be lost. Are you sure you want to start a new project?";
+                const string caption = "New project";
+                var result = MessageBox.Show(message, caption,
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Question);
+
+                // If the no button was pressed ...
+                if (result == DialogResult.Yes)
+                {
+                    UploadImage();
+                }
+            }
+            else
+                UploadImage();
         }
 
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        private void videoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pictureBox2.Image = Gamma((Bitmap)pictureBox2.Image, .9f);
+            if (IsReadingFrames || capture != null)
+            {
+                IsReadingFrames = false;
+                capture = null;
+                frameNo = 0;
+            }
+            if (upload)
+            {
+                const string message = "Any unsaved changes will be lost. Are you sure you want to start a new project?";
+                const string caption = "New project";
+                var result = MessageBox.Show(message, caption,
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Question);
+
+                // If the no button was pressed ...
+                if (result == DialogResult.Yes)
+                {
+                    UploadVideo();
+                }
+            }
+            else
+                UploadVideo();
         }
 
-        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        private void mP4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pictureBox2.Image = Gamma((Bitmap)pictureBox2.Image, 1f);
-        }
+            if(video)
+                SaveVideo();
 
-        private void toolStripMenuItem5_Click(object sender, EventArgs e)
-        {
-            pictureBox2.Image = Gamma((Bitmap)pictureBox2.Image, 1.1f);
         }
-
-        private void toolStripMenuItem6_Click(object sender, EventArgs e)
-        {
-            pictureBox2.Image = Gamma((Bitmap)pictureBox2.Image, 1.2f);
-        }
-
-        private void despeckleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            pictureBox2.Image = NoiseSaltPepper((Bitmap)pictureBox2.Image);
-        }
-
-        private void coolToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            pictureBox2.Image = Cool((Bitmap)pictureBox2.Image);
-        }
-
-        private void negativeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            pictureBox2.Image = Negative((Bitmap)pictureBox2.Image);
-        }
-
-        private void mirrorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            pictureBox2.Image = Mirror((Bitmap)pictureBox2.Image);
-        }
-
-        private void mosaicToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            pictureBox2.Image = Pixelate((Bitmap)pictureBox2.Image);
-        }
-
 
         private void grayScaleToBinaryBWToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pictureBox2.Image = GrayScaletoBinary((Bitmap)pictureBox2.Image);
+            filter = "B&W";
         }
 
-        private void greyScaleToolStripMenuItem_Click(object sender, EventArgs e)
+        private void grayScaleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pictureBox2.Image = GrayScale((Bitmap)pictureBox2.Image);
-            
+            filter = "GRAY";
+
         }
 
         private void sepiaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pictureBox2.Image = Sepia((Bitmap)pictureBox2.Image);
+            filter = "SEPIA";
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Gamma((Bitmap)pictureBox2.Image, .8f);
+            filter = "GAMMA .8";
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Gamma((Bitmap)pictureBox2.Image, .9f);
+            filter = "GAMMA .9";
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Gamma((Bitmap)pictureBox2.Image, 1f);
+            filter = "GAMMA 1.0";
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Gamma((Bitmap)pictureBox2.Image, 1.1f);
+            filter = "GAMMA 1.1";
+        }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Gamma((Bitmap)pictureBox2.Image, 1.2f);
+            filter = "GAMMA 1.2";
+        }
+
+        private void despeckleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = NoiseSaltPepper((Bitmap)pictureBox2.Image);
+            filter = "S&P";
+        }
+
+        private void coolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Cool((Bitmap)pictureBox2.Image);
+            filter = "COOL";
+        }
+
+        private void warmToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Warm((Bitmap)pictureBox2.Image);
+            filter = "WARM";
+        }
+
+        private void negativeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Negative((Bitmap)pictureBox2.Image);
+            filter = "NEGATIVE";
+        }
+
+        private void mirrorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Mirror((Bitmap)pictureBox2.Image);
+            filter = "MIRROR";
+        }
+
+        private void mosaicToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            pictureBox2.Image = Pixelate((Bitmap)pictureBox2.Image);
+            filter = "MOSAIC";
+
         }
 
     }

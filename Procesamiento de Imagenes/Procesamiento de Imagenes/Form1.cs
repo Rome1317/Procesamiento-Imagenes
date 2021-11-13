@@ -60,14 +60,6 @@ namespace Procesamiento_de_Imagenes
             Form1_Load(sender,e);
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            otherForm.Show();
-            otherForm.UploadImage();
-        }
-
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -95,5 +87,21 @@ namespace Procesamiento_de_Imagenes
             recognition = new Form3();
             this.Show();
         }
+
+        private void imageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            otherForm.Show();
+            otherForm.UploadImage();
+
+        }
+
+        private void videoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            otherForm.Show();
+            otherForm.UploadVideo();
+        }
+
     }
 }
