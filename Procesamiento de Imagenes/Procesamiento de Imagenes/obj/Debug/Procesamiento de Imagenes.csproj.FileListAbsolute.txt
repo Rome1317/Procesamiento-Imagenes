@@ -47,3 +47,4 @@ C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de 
 C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\bin\Debug\zh-cn\ZedGraph.resources.dll
 C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\bin\Debug\zh-tw\ZedGraph.resources.dll
 C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\bin\Debug\haarcascade_frontalface_alt_tree.xml
+C:\Users\rome_\OneDrive\Documentos\UANL\Procesamiento-Imagenes\Procesamiento de Imagenes\Procesamiento de Imagenes\obj\Debug\Procesamiento_de_Imagenes.Form4.resources

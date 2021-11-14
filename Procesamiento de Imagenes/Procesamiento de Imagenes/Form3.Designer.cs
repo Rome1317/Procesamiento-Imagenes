@@ -89,7 +89,6 @@ namespace Procesamiento_de_Imagenes
             this.label1.Size = new System.Drawing.Size(148, 25);
             this.label1.TabIndex = 20;
             this.label1.Text = "People Count ";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -139,6 +138,7 @@ namespace Procesamiento_de_Imagenes
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(850, 520);
             this.Name = "Form3";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Movement Recognition";
             this.Load += new System.EventHandler(this.Form3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

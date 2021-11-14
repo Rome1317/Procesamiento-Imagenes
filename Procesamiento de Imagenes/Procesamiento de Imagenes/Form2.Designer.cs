@@ -57,8 +57,6 @@ namespace Procesamiento_de_Imagenes
             this.negativeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sepiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.warmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.blurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gaussianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.noiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.despeckleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pixelateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,6 +77,7 @@ namespace Procesamiento_de_Imagenes
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -200,7 +199,6 @@ namespace Procesamiento_de_Imagenes
             // 
             this.filtersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bWToolStripMenuItem,
-            this.blurToolStripMenuItem,
             this.noiseToolStripMenuItem,
             this.pixelateToolStripMenuItem});
             this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
@@ -219,7 +217,7 @@ namespace Procesamiento_de_Imagenes
             this.sepiaToolStripMenuItem,
             this.warmToolStripMenuItem});
             this.bWToolStripMenuItem.Name = "bWToolStripMenuItem";
-            this.bWToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bWToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.bWToolStripMenuItem.Text = "Colors";
             // 
             // coolToolStripMenuItem
@@ -318,27 +316,12 @@ namespace Procesamiento_de_Imagenes
             this.warmToolStripMenuItem.Text = "Warm";
             this.warmToolStripMenuItem.Click += new System.EventHandler(this.warmToolStripMenuItem_Click);
             // 
-            // blurToolStripMenuItem
-            // 
-            this.blurToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gaussianToolStripMenuItem});
-            this.blurToolStripMenuItem.Name = "blurToolStripMenuItem";
-            this.blurToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.blurToolStripMenuItem.Text = "Blur";
-            // 
-            // gaussianToolStripMenuItem
-            // 
-            this.gaussianToolStripMenuItem.Enabled = false;
-            this.gaussianToolStripMenuItem.Name = "gaussianToolStripMenuItem";
-            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.gaussianToolStripMenuItem.Text = "Gaussian";
-            // 
             // noiseToolStripMenuItem
             // 
             this.noiseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.despeckleToolStripMenuItem});
             this.noiseToolStripMenuItem.Name = "noiseToolStripMenuItem";
-            this.noiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.noiseToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.noiseToolStripMenuItem.Text = "Noise";
             // 
             // despeckleToolStripMenuItem
@@ -353,7 +336,7 @@ namespace Procesamiento_de_Imagenes
             this.pixelateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mosaicToolStripMenuItem});
             this.pixelateToolStripMenuItem.Name = "pixelateToolStripMenuItem";
-            this.pixelateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pixelateToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.pixelateToolStripMenuItem.Text = "Pixelate";
             // 
             // mosaicToolStripMenuItem
@@ -420,7 +403,7 @@ namespace Procesamiento_de_Imagenes
             this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(757, 459);
+            this.button4.Location = new System.Drawing.Point(738, 462);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(77, 27);
             this.button4.TabIndex = 15;
@@ -430,7 +413,7 @@ namespace Procesamiento_de_Imagenes
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(918, 463);
+            this.textBox1.Location = new System.Drawing.Point(1001, 431);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(81, 20);
             this.textBox1.TabIndex = 16;
@@ -447,7 +430,7 @@ namespace Procesamiento_de_Imagenes
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(840, 459);
+            this.button5.Location = new System.Drawing.Point(821, 462);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(77, 27);
             this.button5.TabIndex = 17;
@@ -516,7 +499,7 @@ namespace Procesamiento_de_Imagenes
             this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(840, 459);
+            this.button7.Location = new System.Drawing.Point(821, 462);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(77, 27);
             this.button7.TabIndex = 22;
@@ -531,7 +514,7 @@ namespace Procesamiento_de_Imagenes
             this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(757, 459);
+            this.button8.Location = new System.Drawing.Point(738, 462);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(77, 27);
             this.button8.TabIndex = 21;
@@ -544,12 +527,22 @@ namespace Procesamiento_de_Imagenes
             // 
             this.saveFileDialog2.Filter = "MP4 (*.mp4)|*.mp4|All Files(*.*)|*.*";
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(688, 465);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(265, 18);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.TabIndex = 23;
+            this.progressBar1.Visible = false;
+            // 
             // Form2
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(15)))), ((int)(((byte)(13)))));
             this.ClientSize = new System.Drawing.Size(1094, 497);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.comboBox1);
@@ -561,15 +554,16 @@ namespace Procesamiento_de_Imagenes
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.pictureBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1110, 536);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1110, 536);
             this.Name = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Editor";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -596,8 +590,6 @@ namespace Procesamiento_de_Imagenes
         private System.Windows.Forms.ToolStripMenuItem coolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem greyScaleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sepiaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem blurToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gaussianToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noiseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem despeckleToolStripMenuItem;
         private System.Windows.Forms.Button button3;
@@ -633,5 +625,6 @@ namespace Procesamiento_de_Imagenes
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.SaveFileDialog saveFileDialog2;
         private System.Windows.Forms.ToolStripMenuItem mP4ToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

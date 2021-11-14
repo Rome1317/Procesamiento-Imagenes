@@ -16,7 +16,11 @@ namespace Procesamiento_de_Imagenes
 {
     public partial class Form2 : Form
     {
+        // Movement recognition Form
         Form3 recognition = new Form3();
+
+        // Progress bar Form
+        Form4 frm;
 
         // Validation variables
         bool upload = false;
@@ -24,12 +28,14 @@ namespace Procesamiento_de_Imagenes
         string filter = "";
 
         //Video variables
+        double frames = 0; // totalFrame temporal
+        int crop = 0; // frameNo temporal
         double totalFrame = 0;
         double fps = 0;
         int frameNo = 0;
         VideoCapture capture;
         bool IsReadingFrames = false;
-   
+
         // Camera variables
         private FilterInfoCollection myDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
         private VideoCaptureDevice myWebCam = null;
@@ -39,20 +45,18 @@ namespace Procesamiento_de_Imagenes
         private Color Newpixel;
         private int A, R, G, B;
 
-        public int clamps(int x, int min, int max)
+        public void Showprogress(int x, int total)
         {
-            if (x < min)
-                return min;
-            if (x > max)
-                return max;
-
-            return x;
+            if (!video)
+                progressBar1.Visible = true;
+                progressBar1.Value = (int)x++ * 100 / total;
         }
 
+        #region Filters
         // Gray Scale
-        #region Grayscale
         public Bitmap GrayScale(Bitmap image)
         {
+
             // For pixel by pixel
             for (int x = 0; x < image.Width; x++)
             {
@@ -62,15 +66,18 @@ namespace Procesamiento_de_Imagenes
                     int grayScale = (int)((pixel.R * 0.3) + (pixel.G * 0.59) + (pixel.B * 0.11));
                     Newpixel = Color.FromArgb(pixel.A, grayScale, grayScale, grayScale); // New pixel color
                     image.SetPixel(x, y, Newpixel);
+
                 }
+
+                Showprogress(x, image.Width);
             }
+
+            progressBar1.Visible = false;
 
             return image;
         }
-        #endregion
 
         // Black & White
-        #region Black&White
         public Bitmap GrayScaletoBinary(Bitmap image)
         {
             // For pixel by pixel
@@ -87,14 +94,15 @@ namespace Procesamiento_de_Imagenes
                     Newpixel = Color.FromArgb(pixel.A, grayScale, grayScale, grayScale); // New pixel color
                     image.SetPixel(x, y, Newpixel);
                 }
+                Showprogress(x, image.Width);
             }
+
+            progressBar1.Visible = false;
 
             return image;
         }
-        #endregion
 
         // Sepia
-        #region Sepia
         public Bitmap Sepia(Bitmap image)
         {
             for (int x = 0; x < image.Width; x++)
@@ -129,14 +137,16 @@ namespace Procesamiento_de_Imagenes
 
                     image.SetPixel(x, y, Newpixel);
                 }
+
+                Showprogress(x, image.Width);
             }
+
+            progressBar1.Visible = false;
 
             return image;
         }
-        #endregion
 
         // Gamma
-        #region Gamma
         public Bitmap Gamma(Bitmap image, float gamma)
         {
             // Gamma factor
@@ -175,14 +185,16 @@ namespace Procesamiento_de_Imagenes
 
                     image.SetPixel(x, y, Newpixel);
                 }
+
+                Showprogress(x, image.Width);
             }
+
+            progressBar1.Visible = false;
 
             return image;
         }
-        #endregion
 
         // Noise Salt & Pepper
-        #region Noise Salt & Pepper
         public Bitmap NoiseSaltPepper(Bitmap image)
         {
             Random rnd = new Random(Guid.NewGuid().GetHashCode());
@@ -206,14 +218,16 @@ namespace Procesamiento_de_Imagenes
                     }
                     image.SetPixel(x, y, Newpixel);
                 }
+
+                Showprogress(x, image.Width);
             }
+
+            progressBar1.Visible = false;
 
             return image;
         }
-        #endregion
 
         //  Cool
-        #region Cool
         public Bitmap Cool(Bitmap image)
         {
 
@@ -237,16 +251,17 @@ namespace Procesamiento_de_Imagenes
                     Newpixel = Color.FromArgb(pixel.A, R, G, B); // New pixel color
                     image.SetPixel(x, y, Newpixel);
                 }
+
+                Showprogress(x, image.Width);
             }
 
+            progressBar1.Visible = false;
 
             return image;
         }
 
-        #endregion
 
         // Warm
-        #region Warm
         public Bitmap Warm(Bitmap image)
         {
 
@@ -270,16 +285,15 @@ namespace Procesamiento_de_Imagenes
                     Newpixel = Color.FromArgb(pixel.A, R, G, B); // New pixel color
                     image.SetPixel(x, y, Newpixel);
                 }
+
+                Showprogress(x, image.Width);
             }
 
+            progressBar1.Visible = false;
 
             return image;
         }
 
-        #endregion
-
-        // Negative
-        #region Negative
 
         // Mirror
         public Bitmap Mirror(Bitmap image)
@@ -301,7 +315,11 @@ namespace Procesamiento_de_Imagenes
                     mimg.SetPixel(lx, y, pixel);
                     mimg.SetPixel(rx, y, pixel);
                 }
+
+                Showprogress(y, image.Height);
             }
+
+            progressBar1.Visible = false;
 
             return mimg;
         }
@@ -321,14 +339,16 @@ namespace Procesamiento_de_Imagenes
 
                     image.SetPixel(x, y, Color.FromArgb(pixel.A, R, G, B));
                 }
+
+                Showprogress(x, image.Width);
             }
+
+            progressBar1.Visible = false;
 
             return image;
         }
-        #endregion
 
         // Pixelate
-        #region Pixelate
         public Bitmap Pixelate(Bitmap image)
         {
             int mosaic = 20;
@@ -366,7 +386,11 @@ namespace Procesamiento_de_Imagenes
                         }
                     }
                 }
+
+                Showprogress(x, image.Width);
             }
+
+            progressBar1.Visible = false;
 
             return image;
         }
@@ -377,8 +401,10 @@ namespace Procesamiento_de_Imagenes
             InitializeComponent();
 
         }
+
         private void Form2_Load(object sender, EventArgs e)
         {
+
             pictureBox1.Image = new Bitmap(global::Procesamiento_de_Imagenes.Properties.Resources._7);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.Image = new Bitmap(global::Procesamiento_de_Imagenes.Properties.Resources._8);
@@ -441,7 +467,20 @@ namespace Procesamiento_de_Imagenes
             open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
             if (open.ShowDialog() == DialogResult.OK)
             {
+                if (myWebCam != null && myWebCam.IsRunning == true)
+                {
+                    pictureBox1.Image = null;
+                    myWebCam.SignalToStop();
+                    myWebCam = null;
+                }
+                if (video)
+                {
+                    video = false;
+                    button7.Visible = false;
+                    button8.Visible = false;
+                    IsReadingFrames = false;
 
+                }
                 // display image in picture box  
                 pictureBox1.Image = new Bitmap(open.FileName);
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -452,9 +491,8 @@ namespace Procesamiento_de_Imagenes
 
                 upload = true;
 
-                video = false;
-
                 mP4ToolStripMenuItem.Enabled = false;
+
             }
         }
 
@@ -465,6 +503,13 @@ namespace Procesamiento_de_Imagenes
             open.Filter = "Video Files|*.mp4;";
             if (open.ShowDialog() == DialogResult.OK)
             {
+                if (myWebCam != null && myWebCam.IsRunning == true)
+                {
+                    pictureBox1.Image = null;
+                    myWebCam.SignalToStop();
+                    myWebCam = null;
+                }
+
                 capture = new VideoCapture(open.FileName);
                 Mat m = new Mat();
                 capture.Read(m);
@@ -480,8 +525,10 @@ namespace Procesamiento_de_Imagenes
                 button8.Visible = true;
 
                 mP4ToolStripMenuItem.Enabled = true;
+
             }
 
+           
         }
 
         public void SaveImage(string ext)
@@ -491,43 +538,77 @@ namespace Procesamiento_de_Imagenes
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     pictureBox2.Image.Save(saveFileDialog.FileName);
+
+                    MessageBox.Show("Image successfully saved", "Confirmation");
                 }
             }
         }
 
         public void SaveVideo()
         {
-            if (saveFileDialog2.ShowDialog() == DialogResult.OK)
+
+            int fourcc = Convert.ToInt32(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FourCC));
+            int width = Convert.ToInt32(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameWidth));
+            int height = Convert.ToInt32(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameHeight));
+            VideoWriter writer = new VideoWriter(saveFileDialog2.FileName, VideoWriter.Fourcc('X', 'V', 'I', 'D'), fps, new Size(width, height), true);
+            Mat m = new Mat();
+            Image<Bgr, byte> filter_image = null;
+            
+            while (frameNo < totalFrame)
             {
-                int fourcc = Convert.ToInt32(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FourCC));
-                int width = Convert.ToInt32(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameWidth));
-                int height = Convert.ToInt32(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameHeight));
-                VideoWriter writer = new VideoWriter(saveFileDialog2.FileName, fourcc, fps, new Size(width, height), true);
-                Mat m = new Mat();
-                Image<Bgr, byte> filter_image = null;
-                while (frameNo < totalFrame)
-                {
 
-                    capture.Read(m);
-                    if (m.Bitmap != null)
-                    {
-                        filter_image = new Image<Bgr, byte>(m.Bitmap);
-                        writer.Write(filter_image.Mat);
-                        frameNo++;
-                    }
+              frm.progress(frameNo, totalFrame);
+
+              capture.Read(m);
+                if (m.Bitmap != null)
+                {
+                    filter_image = new Image<Bgr, byte>(m.Bitmap);
+
+                    if (filter == "B&W")
+                        filter_image = new Image<Bgr, byte>(GrayScaletoBinary(m.Bitmap));
+                    else if (filter == "GRAY")
+                        filter_image = new Image<Bgr, byte>(GrayScale(m.Bitmap));
+                    else if (filter == "SEPIA")
+                        filter_image = new Image<Bgr, byte>(Sepia(m.Bitmap));
+                    else if (filter == "GAMMA .8")
+                        filter_image = new Image<Bgr, byte>(Gamma(m.Bitmap, .8f));
+                    else if (filter == "GAMMA .9")
+                        filter_image = new Image<Bgr, byte>(Gamma(m.Bitmap, .9f));
+                    else if (filter == "GAMMA 1.0")
+                        filter_image = new Image<Bgr, byte>(Gamma(m.Bitmap, 1f));
+                    else if (filter == "GAMMA 1.1")
+                        filter_image = new Image<Bgr, byte>(Gamma(m.Bitmap, 1.1f));
+                    else if (filter == "GAMMA 1.2")
+                        filter_image = new Image<Bgr, byte>(Gamma(m.Bitmap, 1.2f));
+                    else if (filter == "S&P")
+                        filter_image = new Image<Bgr, byte>(NoiseSaltPepper(m.Bitmap));
+                    else if (filter == "COOL")
+                        filter_image = new Image<Bgr, byte>(Cool(m.Bitmap));
+                    else if (filter == "NEGATIVE")
+                        filter_image = new Image<Bgr, byte>(Negative(m.Bitmap));
+                    else if (filter == "MIRROR")
+                        filter_image = new Image<Bgr, byte>(Mirror(m.Bitmap));
+                    else if (filter == "MOSAIC")
+                        filter_image = new Image<Bgr, byte>(Pixelate(m.Bitmap));
+                    else if (filter == "WARM")
+                        filter_image = new Image<Bgr, byte>(Warm(m.Bitmap));
                     else
-                    {
-                        break;
-                    }
-                }
+                        filter_image = new Image<Bgr, byte>(m.Bitmap);
 
-                if (writer.IsOpened)
+                    writer.Write(filter_image.Mat);
+                    frameNo++;
+                }
+                else
                 {
-                    writer.Dispose();
+                    break;
                 }
-
-                MessageBox.Show("Video successfully saved", "Update");
             }
+
+            if (writer.IsOpened)
+            {
+                writer.Dispose();
+            }
+
         }
 
         private void jpgToolStripMenuItem_Click(object sender, EventArgs e)
@@ -603,14 +684,53 @@ namespace Procesamiento_de_Imagenes
         // Save Button
         private void button3_Click(object sender, EventArgs e)
         {
+            frames = totalFrame;
+            IsReadingFrames = false;
+
             if (video)
             {
-                SaveVideo();
+                if (frameNo != 0)
+                {
+                    const string message = "Do you want to save this video up to this frame?";
+                    const string caption = "Save Video";
+                    var result = MessageBox.Show(message, caption,
+                                                 MessageBoxButtons.YesNo,
+                                                 MessageBoxIcon.Question);
+
+                    // If the yes button was pressed ...
+                    if (result == DialogResult.Yes)
+                    {
+                        frameNo = 0;
+                        totalFrame = crop;
+
+                    }
+                        
+
+                }
+
+                if (saveFileDialog2.ShowDialog() == DialogResult.OK)
+                {
+                    using (frm = new Form4(SaveVideo))
+                    {
+
+                        frm.ShowDialog(this);
+
+                        MessageBox.Show("Video successfully saved", "Confirmation");
+                        totalFrame = frames;
+
+                        
+                    }
+                }
+                    
             }
             else
             {
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
                     pictureBox2.Image.Save(saveFileDialog1.FileName);
+                    MessageBox.Show("Image successfully saved", "Confirmation");
+                }
+
             }
 
         }
@@ -649,7 +769,6 @@ namespace Procesamiento_de_Imagenes
                 MessageBox.Show("The camera is not turned on.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
 
         // Upload Video Button
         private void button6_Click(object sender, EventArgs e)
@@ -692,6 +811,7 @@ namespace Procesamiento_de_Imagenes
             {
                 return;
             }
+            frameNo = crop;
             IsReadingFrames = true;
             ReadAllFrames();
         }
@@ -705,6 +825,7 @@ namespace Procesamiento_de_Imagenes
             while (IsReadingFrames && frameNo < totalFrame)
             {
                 frameNo += 1;
+                crop = frameNo;
                 capture.SetCaptureProperty(Emgu.CV.CvEnum.CapProp.PosFrames, frameNo);
                 capture.Read(m);
                 if (m.Bitmap != null)
@@ -824,19 +945,56 @@ namespace Procesamiento_de_Imagenes
 
         private void mP4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(video)
-                SaveVideo();
+            frames = totalFrame;
 
+            if (video)
+            {
+                if (frameNo != 0)
+                {
+                    const string message = "Do you want to save this video up to this frame?";
+                    const string caption = "Save Video";
+                    var result = MessageBox.Show(message, caption,
+                                                 MessageBoxButtons.YesNo,
+                                                 MessageBoxIcon.Question);
+
+                    // If the yes button was pressed ...
+                    if (result == DialogResult.Yes)
+                    {
+                        frameNo = 0;
+                        totalFrame = crop;
+
+                    }
+
+
+                }
+
+                if (saveFileDialog2.ShowDialog() == DialogResult.OK)
+                {
+                    using (frm = new Form4(SaveVideo))
+                    {
+
+                        frm.ShowDialog(this);
+
+                        MessageBox.Show("Video successfully saved", "Confirmation");
+                        totalFrame = frames;
+
+
+                    }
+                }
+
+            }
         }
 
         private void grayScaleToBinaryBWToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             pictureBox2.Image = GrayScaletoBinary((Bitmap)pictureBox2.Image);
             filter = "B&W";
         }
 
         private void grayScaleToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             pictureBox2.Image = GrayScale((Bitmap)pictureBox2.Image);
             filter = "GRAY";
 

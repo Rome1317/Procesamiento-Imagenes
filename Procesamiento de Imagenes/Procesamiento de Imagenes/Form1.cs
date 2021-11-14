@@ -37,6 +37,7 @@ namespace Procesamiento_de_Imagenes
 
         void otherForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+  
             const string message = "Any unsaved changes will be lost. Are you sure you want to start a new project?";
             const string caption = "New project";
             var result = MessageBox.Show(message, caption,

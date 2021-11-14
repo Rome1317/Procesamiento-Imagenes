@@ -25,6 +25,7 @@ namespace Procesamiento_de_Imagenes
         {
             InitializeComponent();
 
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -57,7 +58,7 @@ namespace Procesamiento_de_Imagenes
             {
                 using (Graphics graphics = Graphics.FromImage(bitmap))
                 {
-                    using (Pen pen = new Pen(Color.Blue, 1))
+                    using (Pen pen = new Pen(Color.Blue, 2))
                     {
                         graphics.DrawRectangle(pen, rectangle);
 
@@ -70,10 +71,29 @@ namespace Procesamiento_de_Imagenes
             }
             pictureBox1.Image = bitmap;
 
-            label2.Invoke(new Action(() =>
+            /*
+
+            try {
+                label2.Invoke(new Action(() =>
+                {
+                    label2.Text = people.ToString();
+                }));
+            }
+            catch (Exception e) {
+                
+            }
+            */
+
+            if (label2.InvokeRequired)
             {
-                label2.Text = people.ToString();
-            }));
+                label2.Invoke(new Action(() =>
+                {
+                    label2.Text = people.ToString();
+                }
+                ));
+
+            }
+
 
         }
 
@@ -81,9 +101,8 @@ namespace Procesamiento_de_Imagenes
         private void CloseWebCam()
         {
 
-            if (myWebCam != null && myWebCam.IsRunning == true)
-            {
-                pictureBox1.Image = null;
+            if (myWebCam != null && myWebCam.IsRunning)
+            { 
                 myWebCam.SignalToStop();
                 myWebCam = null;
             }
@@ -114,16 +133,18 @@ namespace Procesamiento_de_Imagenes
         {
             if (myWebCam != null)
                 CloseWebCam();
+
         }
 
         public void Form3_FormClosed (object sender, EventArgs e)
-        {
-            if (myWebCam != null)
+        { 
                 CloseWebCam();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+
+        public void Form3_FormClosing(object sender, FormClosingEventArgs e)
         {
+                CloseWebCam();
 
         }
     }
