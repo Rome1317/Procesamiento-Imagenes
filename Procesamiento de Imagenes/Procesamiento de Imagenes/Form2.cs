@@ -25,6 +25,7 @@ namespace Procesamiento_de_Imagenes
         // Validation variables
         bool upload = false;
         bool video = false;
+        bool saving = false;
         string filter = "";
 
         //Video variables
@@ -47,16 +48,34 @@ namespace Procesamiento_de_Imagenes
 
         public void Showprogress(int x, int total)
         {
-            if (!video)
-                progressBar1.Visible = true;
-                progressBar1.Value = (int)x++ * 100 / total;
+            if (!video || saving)
+            {
+
+                progressBar1.Invoke(new Action(() =>
+                {
+                    progressBar1.Value = (int)(x++ * 100 / total);
+
+                }));
+
+                label3.Invoke(new Action(() =>
+                {
+                    label3.Text = ((int)(x++ * 100 / total)).ToString() + "%";
+                    label3.Refresh();
+                }));
+            }
+            else
+            {
+                progressBar1.Value = (int)(x++ * 100 / total);
+                label3.Text = ((int)(x++ * 100 / total)).ToString() + "%";
+                label3.Refresh();
+            }
+
         }
 
         #region Filters
         // Gray Scale
         public Bitmap GrayScale(Bitmap image)
         {
-
             // For pixel by pixel
             for (int x = 0; x < image.Width; x++)
             {
@@ -71,8 +90,6 @@ namespace Procesamiento_de_Imagenes
 
                 Showprogress(x, image.Width);
             }
-
-            progressBar1.Visible = false;
 
             return image;
         }
@@ -96,8 +113,6 @@ namespace Procesamiento_de_Imagenes
                 }
                 Showprogress(x, image.Width);
             }
-
-            progressBar1.Visible = false;
 
             return image;
         }
@@ -140,8 +155,6 @@ namespace Procesamiento_de_Imagenes
 
                 Showprogress(x, image.Width);
             }
-
-            progressBar1.Visible = false;
 
             return image;
         }
@@ -189,8 +202,6 @@ namespace Procesamiento_de_Imagenes
                 Showprogress(x, image.Width);
             }
 
-            progressBar1.Visible = false;
-
             return image;
         }
 
@@ -222,8 +233,6 @@ namespace Procesamiento_de_Imagenes
                 Showprogress(x, image.Width);
             }
 
-            progressBar1.Visible = false;
-
             return image;
         }
 
@@ -254,8 +263,6 @@ namespace Procesamiento_de_Imagenes
 
                 Showprogress(x, image.Width);
             }
-
-            progressBar1.Visible = false;
 
             return image;
         }
@@ -289,8 +296,6 @@ namespace Procesamiento_de_Imagenes
                 Showprogress(x, image.Width);
             }
 
-            progressBar1.Visible = false;
-
             return image;
         }
 
@@ -319,8 +324,6 @@ namespace Procesamiento_de_Imagenes
                 Showprogress(y, image.Height);
             }
 
-            progressBar1.Visible = false;
-
             return mimg;
         }
 
@@ -342,8 +345,6 @@ namespace Procesamiento_de_Imagenes
 
                 Showprogress(x, image.Width);
             }
-
-            progressBar1.Visible = false;
 
             return image;
         }
@@ -390,7 +391,7 @@ namespace Procesamiento_de_Imagenes
                 Showprogress(x, image.Width);
             }
 
-            progressBar1.Visible = false;
+            Showprogress(99,100);
 
             return image;
         }
@@ -520,11 +521,16 @@ namespace Procesamiento_de_Imagenes
                 fps = capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.Fps);
 
                 video = true;
+                filter = "";
 
                 button7.Visible = true;
                 button8.Visible = true;
 
                 mP4ToolStripMenuItem.Enabled = true;
+
+                frameNo = crop;
+                IsReadingFrames = true;
+                ReadAllFrames();
 
             }
 
@@ -546,6 +552,7 @@ namespace Procesamiento_de_Imagenes
 
         public void SaveVideo()
         {
+            saving = true;
 
             int fourcc = Convert.ToInt32(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FourCC));
             int width = Convert.ToInt32(capture.GetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameWidth));
@@ -609,6 +616,7 @@ namespace Procesamiento_de_Imagenes
                 writer.Dispose();
             }
 
+            saving = false;
         }
 
         private void jpgToolStripMenuItem_Click(object sender, EventArgs e)
@@ -811,9 +819,13 @@ namespace Procesamiento_de_Imagenes
             {
                 return;
             }
-            frameNo = crop;
-            IsReadingFrames = true;
-            ReadAllFrames();
+
+            if (!IsReadingFrames)
+            {
+                frameNo = crop;
+                IsReadingFrames = true;
+                ReadAllFrames();
+            }
         }
 
         private async void ReadAllFrames()

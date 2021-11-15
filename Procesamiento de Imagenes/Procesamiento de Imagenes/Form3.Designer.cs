@@ -57,9 +57,9 @@ namespace Procesamiento_de_Imagenes
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(481, 446);
+            this.button5.Location = new System.Drawing.Point(388, 446);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(170, 27);
+            this.button5.Size = new System.Drawing.Size(117, 27);
             this.button5.TabIndex = 19;
             this.button5.Text = "Stop";
             this.button5.UseVisualStyleBackColor = true;
@@ -71,9 +71,9 @@ namespace Procesamiento_de_Imagenes
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(305, 446);
+            this.button2.Location = new System.Drawing.Point(265, 446);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(170, 27);
+            this.button2.Size = new System.Drawing.Size(117, 27);
             this.button2.TabIndex = 18;
             this.button2.Text = "Webcam";
             this.button2.UseVisualStyleBackColor = true;
@@ -82,22 +82,22 @@ namespace Procesamiento_de_Imagenes
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Gray;
-            this.label1.Location = new System.Drawing.Point(674, 183);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Silver;
+            this.label1.Location = new System.Drawing.Point(520, 451);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 25);
+            this.label1.Size = new System.Drawing.Size(84, 15);
             this.label1.TabIndex = 20;
             this.label1.Text = "People Count ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(731, 226);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Silver;
+            this.label2.Location = new System.Drawing.Point(621, 448);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 31);
+            this.label2.Size = new System.Drawing.Size(18, 20);
             this.label2.TabIndex = 21;
             this.label2.Text = "0";
             // 
@@ -106,7 +106,7 @@ namespace Procesamiento_de_Imagenes
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(83, 450);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(206, 21);
+            this.comboBox1.Size = new System.Drawing.Size(176, 21);
             this.comboBox1.TabIndex = 23;
             // 
             // label3
@@ -125,7 +125,7 @@ namespace Procesamiento_de_Imagenes
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(15)))), ((int)(((byte)(13)))));
-            this.ClientSize = new System.Drawing.Size(834, 481);
+            this.ClientSize = new System.Drawing.Size(674, 481);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -134,9 +134,9 @@ namespace Procesamiento_de_Imagenes
             this.Controls.Add(this.button2);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.MaximumSize = new System.Drawing.Size(850, 520);
+            this.MaximumSize = new System.Drawing.Size(690, 520);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(850, 520);
+            this.MinimumSize = new System.Drawing.Size(690, 520);
             this.Name = "Form3";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Movement Recognition";

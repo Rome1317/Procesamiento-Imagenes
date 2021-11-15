@@ -71,8 +71,6 @@ namespace Procesamiento_de_Imagenes
             }
             pictureBox1.Image = bitmap;
 
-            /*
-
             try {
                 label2.Invoke(new Action(() =>
                 {
@@ -82,18 +80,7 @@ namespace Procesamiento_de_Imagenes
             catch (Exception e) {
                 
             }
-            */
-
-            if (label2.InvokeRequired)
-            {
-                label2.Invoke(new Action(() =>
-                {
-                    label2.Text = people.ToString();
-                }
-                ));
-
-            }
-
+            
 
         }
 
@@ -136,14 +123,16 @@ namespace Procesamiento_de_Imagenes
 
         }
 
-        public void Form3_FormClosed (object sender, EventArgs e)
-        { 
+        public void Form3_FormClosed(object sender, EventArgs e)
+        {
+            if (myWebCam != null)
                 CloseWebCam();
         }
 
 
         public void Form3_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (myWebCam != null)
                 CloseWebCam();
 
         }

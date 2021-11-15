@@ -78,6 +78,8 @@ namespace Procesamiento_de_Imagenes
             this.button8 = new System.Windows.Forms.Button();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -360,9 +362,9 @@ namespace Procesamiento_de_Imagenes
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button3.ForeColor = System.Drawing.Color.White;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.button3.Location = new System.Drawing.Point(1005, 459);
+            this.button3.Location = new System.Drawing.Point(1017, 459);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(77, 27);
+            this.button3.Size = new System.Drawing.Size(65, 27);
             this.button3.TabIndex = 12;
             this.button3.Text = "Save";
             this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -391,7 +393,7 @@ namespace Procesamiento_de_Imagenes
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Location = new System.Drawing.Point(552, 459);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(77, 27);
+            this.button2.Size = new System.Drawing.Size(70, 27);
             this.button2.TabIndex = 14;
             this.button2.Text = "Webcam";
             this.button2.UseVisualStyleBackColor = true;
@@ -403,9 +405,9 @@ namespace Procesamiento_de_Imagenes
             this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(738, 462);
+            this.button4.Location = new System.Drawing.Point(633, 458);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(77, 27);
+            this.button4.Size = new System.Drawing.Size(70, 27);
             this.button4.TabIndex = 15;
             this.button4.Text = "Capture";
             this.button4.UseVisualStyleBackColor = true;
@@ -430,9 +432,9 @@ namespace Procesamiento_de_Imagenes
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(821, 462);
+            this.button5.Location = new System.Drawing.Point(709, 459);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(77, 27);
+            this.button5.Size = new System.Drawing.Size(70, 27);
             this.button5.TabIndex = 17;
             this.button5.Text = "Stop";
             this.button5.UseVisualStyleBackColor = true;
@@ -499,9 +501,9 @@ namespace Procesamiento_de_Imagenes
             this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(821, 462);
+            this.button7.Location = new System.Drawing.Point(709, 459);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(77, 27);
+            this.button7.Size = new System.Drawing.Size(70, 27);
             this.button7.TabIndex = 22;
             this.button7.Text = "Pause";
             this.button7.UseVisualStyleBackColor = true;
@@ -514,9 +516,9 @@ namespace Procesamiento_de_Imagenes
             this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(738, 462);
+            this.button8.Location = new System.Drawing.Point(633, 459);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(77, 27);
+            this.button8.Size = new System.Drawing.Size(70, 27);
             this.button8.TabIndex = 21;
             this.button8.Text = "Play";
             this.button8.UseVisualStyleBackColor = true;
@@ -529,12 +531,31 @@ namespace Procesamiento_de_Imagenes
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(688, 465);
+            this.progressBar1.Location = new System.Drawing.Point(847, 465);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(265, 18);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.Size = new System.Drawing.Size(129, 18);
             this.progressBar1.TabIndex = 23;
-            this.progressBar1.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label2.Location = new System.Drawing.Point(785, 466);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.TabIndex = 24;
+            this.label2.Text = "Processing";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label3.Location = new System.Drawing.Point(982, 466);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(21, 13);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "0%";
             // 
             // Form2
             // 
@@ -542,21 +563,23 @@ namespace Procesamiento_de_Imagenes
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(15)))), ((int)(((byte)(13)))));
             this.ClientSize = new System.Drawing.Size(1094, 497);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button8);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button8);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1110, 536);
@@ -626,5 +649,7 @@ namespace Procesamiento_de_Imagenes
         private System.Windows.Forms.SaveFileDialog saveFileDialog2;
         private System.Windows.Forms.ToolStripMenuItem mP4ToolStripMenuItem;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
